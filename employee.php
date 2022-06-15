@@ -9,13 +9,14 @@ include 'connection.php';
 </thead>
 <tbody>
 <?php
-    $sql = 'SELECT username FROM login';
+    $sql = 'SELECT fname FROM employee';
     $result = mysqli_query($con,$sql) or die (mysqli_error($con));
     while($row = mysqli_fetch_assoc($result)) {
         echo '<tr>';
-        echo '<td>'. $row['username']. '</td>';
+        echo '<td>'. $row['fname']. '</td>';
 echo "</tr>";    
 }
     ?>
     </tbody>
 </table>
+<button><a href ="addemployee.php"> Add employee</a></button>
