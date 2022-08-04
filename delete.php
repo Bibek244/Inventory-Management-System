@@ -7,7 +7,7 @@ $pid = $_GET["PRODUCT_ID"];
 $query = "DELETE FROM inventory WHERE PRODUCT_ID ='$pid'";
 $result = mysqli_query($con,$query);
 if(!$result){
-    echo "error".mysqli_error();
+    echo "error".mysqli_error($con);
 }
 else{
     echo "<script>alert('The product has been deleted')</script>";

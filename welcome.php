@@ -12,7 +12,6 @@ error_reporting(E_ALL);
     }
    
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,8 +21,11 @@ error_reporting(E_ALL);
     <title>Welcome - <?php echo $_SESSION['user']?></title>
 </head>
 <body>
+<div id="content">
 <?php echo "welcome " .$_SESSION['user']?>
 <br>
 <button><a href ="logout.php"><h1>logout</h1></a></button>
+<button><a href ="acc_edit.php"><h1>EDIT</h1></a></button>
+</div>
 </body>
 </html>

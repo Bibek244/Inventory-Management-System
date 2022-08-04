@@ -6,44 +6,13 @@
   }
 
 ?>
-<?php
-ini_set("display_errors", "1");
-error_reporting(E_ALL);
-
-$login = false;
-$showerror = false;
-include 'connection.php';
-        if($_SERVER["REQUEST_METHOD"]== "POST"){
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-        
-    $query = "SELECT * FROM login WHERE username = '$username' and password = '$password'";
-    $result = mysqli_query($con,$query);
-    $count = mysqli_num_rows($result);
-        
-    if($count > 0){
-      
-      $login = true;
-      session_start();
-      $_SESSION['loggedin'] = true;
-      $_SESSION['user'] = $username;
-      header("location: welcome.php");
-      
-    }
-    else {
-      $showerror = "Invalid credentials!";
-    }
-    }
-    ?>
-    
-
 <html>
     <head>
         <title> Login page </title>
 </head>
 <body>
  <div class="container">
-    <form  method ="post">
+    <form  method ="post" action ="process_login.php">
     <div class="mb-3">
     <label for="username" class="form-label">Username</label>
     <input type="text" class="form-control" id="username" name = "username">
