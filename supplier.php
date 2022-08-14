@@ -1,16 +1,47 @@
 <?php
 include'connection.php';
 include'sidebar.php';
-?>
-<div id ="content">
-<h1><a href="addsup.php">Add supplier</a></h1>
-<table border = "2 " colspace = "7" colspadding = "4">
+?><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Supplier</title>
+  <style>
+    .card  ul{
+overflow:hidden;
+}
+.card  li{
+display:inline-block;
+}
+</style>
+</head>
+<body>
+  
+  <div id ="content">
+    <div class = "container">
+      
+        <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <ul>
+                      <li>
+                        <h4 class="m-2 font-weight-bold text-primary">Suppliers</h4>
+                      </li>
+                      <li>
+                        <a  type = "button" class='btn btn-primary bg-gradient-primary'  href="addsup.php">Add supplier</a>
+                      </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+                  <div class="table-responsive">
+                    <table class="table table-bordered"width = "100%" id="dataTable"cellspacing="0" border = "2"> 
     <tr>
         <th>Supplier_id</th>
         <th>Compnay name</th>
         <th>Address</th>
         <th>Phone no</th>
-        <th colspan ="2" > Action </th>
+        <th > Action </th>
     </tr>
     <div>
 <?php
@@ -22,10 +53,15 @@ while($row = mysqli_fetch_assoc($result)){
     echo '<td>'. $row['Company_name']. '</td>';
     echo '<td>'. $row['Address']. '</td>';
     echo '<td>'. $row['Phone']. '</td>';
-    echo '<td><a href ="appsup.php?action=edit&id=$row[Supplier_id]&Company_name=$row[]">Edit</td>';
-    echo '<td><a href ="delsup.php">Delete</td>';
+    echo '<td><a  class="btn btn-primary bg-gradient-primary"  href ="editsup.php?action=edit&id='.$row['Supplier_id'].' ">Edit</td>';
     
-echo "</tr>";    
-}
-?>
+    echo "</tr>";    
+  }
+  ?>
 </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        3
