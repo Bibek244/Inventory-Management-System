@@ -2,13 +2,45 @@
 include 'connection.php';
 include 'sidebar.php';
 ?>
-<div id="content">
-<table border ="2" cellspacing ="7"padding ="2">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee</title>
+    <style>
+    .card  ul{
+overflow:hidden;
+}
+.card  li{
+display:inline-block;
+}
+</style>
+</head>
+<body>
+    
+    <div id="content">
+        <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <ul>
+                    <li>
+                        <h4 class="m-2 font-weight-bold text-primary">Employee</h4>
+                    </li>
+                    <li>
+                        <a type = "button" class='btn btn-primary bg-gradient-primary' href="addemployee.php">Add employee</a>
+                    </li>
+                </ul>
+                </div>
+                <div class = "card-body">
+                    <div class= "table-responsive">
+<table class="table table-bordered"width = "100%" id="dataTable"cellspacing="0" border = "2"> 
     <thead>
         <tr>
             <th>Full name</th>
             <th>Job title</th>
-            <th colspan = "3">Action</th>
+            <th colspan = "3" width="20%">Action</th>
             <tr>
 </thead>
 <tbody>
@@ -20,13 +52,18 @@ include 'sidebar.php';
         echo '<tr>';
         echo "<td>". $row['fname'].' '. $row['lname']. "</td>";
         echo "<td>". $row['JOB_TITLE']."</td>";
-        echo"<td> <button><a href ='emp_searchfrm.php?action=edit&id=$row[Employe_Id]'>Details</a></button>";
-        echo"<td> <button><a href ='emp_edit.php?action=edit&id=$row[Employe_Id]'>edit</a></button>";
-        echo'<td> <button><a href ="#">delete</a></button>';
+        echo"<td> <a type='button'class='btn btn-secondary bg-gradient-secondary' href ='emp_searchfrm.php?action=edit&id=$row[Employe_Id]'>Details</a>";
+        echo"<td> <a  type= 'button' class='btn btn-primary bg-gradient-primary' href ='emp_edit.php?action=edit&id=$row[Employe_Id]'>edit</a>";
+       
 echo "</tr>";    
 }
     ?>
     </tbody>
 </table>
-<button >  <a href="addemployee.php">Add employee</a></button>
+            </div>
 </div>
+</div>
+</div>
+</div
+            </body>
+            </html>

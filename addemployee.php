@@ -1,11 +1,11 @@
 <?php
 include'connection.php';
-ini_set("display_errors", "1");
-error_reporting(E_ALL);
+include'sidebar.php';
+include'function.php';
 $sqlforjob = "SELECT DISTINCT JOB_TITLE, JOB_ID FROM job order by JOB_ID asc";
 $result = mysqli_query($con, $sqlforjob) or die ("mysqli_error( $sqlforjob)");
 
-$job  = "<select name='job' required>
+$job  = "<select name='job' id = 'job' class = 'form-control' required>
         <option value ='' disabled selected hidden>select Job</option>";
 
         
@@ -13,53 +13,80 @@ $job  = "<select name='job' required>
     $job .= "<option value='".$row['JOB_ID']."'>".$row['JOB_TITLE']."</option> ";
   }
     $job.= "</select>";
-  ?>
-<html>
-<head>
-<title>Add employee</title>
-<style>
-form {
-    display: flex;
-    flex-direction: column;
-}
-    button {
-        cursor : pointer;
-    }
-   
-</style>
-</head>
-<body>
-<div class ="form-container">
-<form method = "POST">
-    <label for="fname">Firstname</label>
-    <input type="text" name ="fname" required>
-    <label for="lname">Lastname</label>
-    <input type="text" name ="lname" required>
-    <label for="gender">Gender</label>
-    <select name = "gender" required>
-        <option value ='' disable selected hidden>Select gender</option>
-        <option value = "male">Male</option>
-        <option value = "female">Female</option>
-</select>
-    <label for="email">E-mail</label>
-    <input type="email" name ="email" required>
-    <label for="phone">Phone Number</label>
-    <input type="tel" name ="phone"  pattern ="[0-9]{3}[0-9]{4}[0-9]{3}" required>
-    <?php 
-    echo $job ;
-    ?>
-    <label for="hdate">Hired date</label>
-    <input type="date" name ="hdate" required>
-    <label for="address">Address</label>
-    <input type="text" name ="address" required>  
-    <button type ="submit"> Submit</button>
-    <button type = "reset">Reset</button>
+  ?><!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Add employee</title>
+  </head>
+  <body>
+      <div id="content">
+
+          <div class ="container">
+              <div class="card shadow">
+                    <div class="card-header bg-primary text-white text-center">
+                    <h3>Add Employee</h3>
+                    </div>
+                  <form method = "POST">
+                      <div class="card-body">
+                        <div class="form-group">
+                            <label for="fname">Firstname</label>
+                            <input type="text" class="form-control"id="fname" name ="fname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lname">Lastname</label>
+                            <input type="text"class = "form-control" id = "lname" name ="lname" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            <select name = "gender"class = "form-control" id = " " required>
+                                <option value ='' disable selected hidden>Select gender</option>
+                                <option value = "male">Male</option>
+                                <option value = "female">Female</option>
+                        </select>
+                        </div>
+                        <div class="form-group">
+                                <label for="branch">branch</label>
+                                <?= $branch?>
+                        </div>
+                        <div class="form-group">
+                                <label for="email">E-mail</label>
+                                <input type="email" class = "form-control" id = "email"name ="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" class = "form-control" id = "phone"name ="phone"  pattern ="[0-9]{3}[0-9]{4}[0-9]{3}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for = "job">JOB</label>
+                            <?= $job ?>
+                        </div>
+                        <div class="form-group">
+                            <label for="hdate">Hired date</label>
+                            <input type="date" class = "form-control" id = "hdate" name ="hdate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" class = "form-control" id = "address"name ="address" required>  
+                        </div>
+                    </div>
+<div class="card-footer">
+    <button class="btn btn-primary" name ="submit" type ="submit"> Submit</button>
+    <button class="btn btn-info" type = "reset">Reset</button>
+    <a href="employee.php" class="btn btn-secondary">Cancel</a>
+
+</div>
+                        
 </form>
+</div>
+</div>
 </div>
 </body>
 </html>
     <?php
-    if($_SERVER["REQUEST_METHOD"]=="POST"){
+    if(isset($_POST['submit'])){
         $fname = $_POST['fname'];
         $lname  = $_POST['lname'];
         $gender = $_POST['gender'];
@@ -68,16 +95,16 @@ form {
         $jo = $_POST['job'];
         $hdate = $_POST['hdate'];
         $address = $_POST['address'];
-        $test ="INSERT INTO `employee` (`fname`, `lname`, `gender`, `email`, `phone`, `JOB_ID`, `Hired_date`, `address`) VALUES ('$fname', '$lname', '$gender', '$email', '$phone', '$jo', '$hdate', '$address' )";
-        $employee =mysqli_query($con, $test);
-        if (!$employee){
-            echo "error" .mysqli_error($con);
-            exit;
-        }
-        else{
-            echo "sucess";
-            header("location: employee.php");
-        }
+        $branch = $_POST['branch'];
+        $test ="INSERT INTO `employee` (`fname`, `lname`, `gender`, `email`, `phone`, `JOB_ID`, `Hired_date`, `address`,`branch_id`) VALUES ('$fname', '$lname', '$gender', '$email', '$phone', '$jo', '$hdate', '$address' ,'$branch')";
+        $employee =mysqli_query($con, $test) or die(mysqli_error($con))
+            ?>
+            <script>
+                alert("Successfully added employee");
+                window.location= "employee.php";
+            </script>
+<?php
+        
     }   
          
     ?>

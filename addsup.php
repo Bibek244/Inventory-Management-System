@@ -1,18 +1,39 @@
 <?php
 include'connection.php';
+include'sidebar.php';
+confirm_logged_in();
 ?>
-<div class ="form-container">
-<form method ="POST">
-    <label for = "company">Company name</label>
-    <input type = "text" name = "company" required>
-    <label for = "address">Address</label>
-    <input type = "text" name = "address" required>
-    <label for = "phone">Phone number</label>
-    <input type = "tel" pattern = "[0-9]{3}[0-9]{4}[0-9]{3}" name ="phone"  required>
-    <button type = "submit" >submit</button>
-    <button type = "reset" >reset</button>
-</form>
+<div id="content">
+    <div class="container">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white text-center">
+                <h3>Add Supplier</h3>
+            </div>
+            <div class="card-body">
+                <form method ="POST">
+                <div class="form-group">
+                    <label for = "company">Company name</label>
+                    <input type = "text" class= "form-control" id = "company" name = "company" required>
+                </div>
+                <div class="form-group">
+                    <label for = "address">Address</label>
+                <input type = "text" class= "form-control" id = "address"name = "address" required>
+                </div>
+                <div class="form-group">
+                    <label for = "phone">Phone number</label>
+                    <input type = "tel" class= "form-control" id = "phone"pattern = "[0-9]{3}[0-9]{4}[0-9]{3}" name ="phone"  required>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button type = "submit" class="btn btn-primary">submit</button>
+                <button type = "reset" class="btn btn-warning">reset</button>
+                <a href="supplier.php" class="btn btn-secondary">Cancel</a>
+            </div>
+            </form>
+        </div>
+    </div>
 </div>
+
 <?php
 
 if($_SERVER['REQUEST_METHOD'] == "POST"){

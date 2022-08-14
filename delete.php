@@ -1,16 +1,24 @@
 <?php
-include'connection.php';
-ini_set("display_errors", "1");
-error_reporting(E_ALL);
+require'connection.php';
+require'session.php';
+confirm_logged_in();
 
 $pid = $_GET["PRODUCT_ID"];
 $query = "DELETE FROM inventory WHERE PRODUCT_ID ='$pid'";
 $result = mysqli_query($con,$query);
 if(!$result){
-    echo "error".mysqli_error($con);
+
+    ?>
+    <script>alert('Failed to delete product');
+    window.location ='inventory.php';
+</script>
+    <?php
 }
 else{
-    echo "<script>alert('The product has been deleted')</script>";
+    ?>
+    <script>alert('The product has been deleted');
+    window.location ='inventory.php';
+</script>
+    <?php
 }
-header("location:inventory.php");
 ?>

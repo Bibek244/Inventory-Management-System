@@ -1,7 +1,6 @@
 <?php
     require 'connection.php';
-    require'session.php';
-    confirm_logged_in();
+    include'sidebar.php';
 ?>
 <?php
 $query = "SELECT Employe_Id, fname, lname, gender, email, phone, j.JOB_TITLE,j.JOB_ID,Hired_date, address FROM employee e
@@ -19,56 +18,71 @@ $ad = $row['address'];
 $jt = $row['JOB_TITLE'];
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <style>
-        form{
-            display : flex;
-            flex-direction: column;
-        }
-    </style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit employee</title>
 </head>
-<div class ="form-container">
-<form method = "POST">
-<input type="hidden" name="id" value="<?php echo $id; ?>" />
-    <label for="fname">First name</label>
-    <input type ="text" name = "fname" value ="<?php echo $fn?>">
-    <label for="lname">Last name</label>
-    <input type ="text" name = "lname" value ="<?php echo $ln?>">
-    <label for="gender">Gender</label>
-    <select name ="gender" value ="<?php echo $ge?>">
-        <option  name ="" disabled>Select gender</option>
-        <option  name ="male"  >Male</option>
-        <option  name ="female" >Female</option>
-    </select>
-    <label for="jobtitle">Role</label>
-   <input type ="text" value = "<?php echo $jt?>"  disabled>
-    <label for="email">Email</label>
-    <input type ="email" name = "email" value =" <?php echo $em?>">
-    <label for="hired_date">Hired date</label>
-    <input type ="date" name = "hired_date" value ="<?php echo $hd?>">
-    <label for="address">Address</label>
-    <input type ="text" name = "address" value = "<?php echo $ad?>">  
-    <label for="phone">Contacts</label>
-    <input type ="tel" pattern = "[0-9]{3}[0-9]{4}[0-9]{3}" name = "phone" value = "<?php echo $phone?>">
-    <button type = "submit" >Submit</button>
-</form>
-    </div>
-<?php
-if($_SERVER['REQUEST_METHOD'] == "POST"){
-    $Employee_id = $_POST['id'];
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $gender = $_POST['gender'];
-    $email = $_POST['email'];
-    $address = $_POST['address'];
-    $phone = $_POST['phone'];
+<body>
+    <div id="content">
+    <div class="container">
 
-    $query = "UPDATE employee SET fname = '$fname' , lname = '$lname',
-     	gender = '$gender', email = '$email', address = '$address', phone = '$phone' 
-         WHERE  Employe_Id  = '$Employee_id'";
-     $result= mysqli_query($con,$query) ;
-     if(!$result){
-         echo "error".mysqli_error($con);
-}
-}
-?>
+        
+        <div class ="card shadow">
+            <form method = "POST" action ="emp_edit_trans.php">
+            <div class="card-header bg-primary text-white">
+                    <h3>Edit employee</h3>
+                </div>
+            <div class="card-body">
+                <input type="hidden" name="id" value="<?php echo $id; ?>" />
+                <div class="form-group">
+                    <label for="fname">First Name</label>
+                    <input type ="text" class = "form-control" id= "fname" name = "fname" value ="<?php echo $fn?>">
+                    </div>
+                <div class="form-group">
+                    <label for="lname">Last name</label>
+                    <input type ="text" class= "form-control" id="lname"name = "lname" value ="<?php echo $ln?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select class="form-control" id="gender" name ="gender" value ="<?php echo $ge?>">
+                            <option  name ="" disabled>Select gender</option>
+                            <option  name ="male"  >Male</option>
+                            <option  name ="female" >Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jobtitle">Role</label>
+                        <input type ="text" class ="form-control" id ="jobtitle" value = "<?php echo $jt?>"  disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type ="email" class= "form-control"id= "email" name = "email" value =" <?php echo $em?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="hired_date">Hired date</label>
+                        <input type ="date"  class = "form-control" id="hired_date" name = "hired_date" value ="<?php echo $hd?>" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type ="text" class = "form-control" id ="address" name = "address" value = "<?php echo $ad?>">  
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Contact no</label>
+                        <input type ="tel" pattern = "[0-9]{3}[0-9]{4}[0-9]{3}"class = "form-control" id="phone" name = "phone" value = "<?php echo $phone?>">
+                    </div>
+                </div>
+                    <div class="card-footer">
+                        <button type = "submit" class = "btn btn-warning btn-gradiant-warning">Submit</button>
+                        <a class = "btn btn-secondary btn-gradiant-secondary" href ="employee.php">cancel</a>
+                    </div>
+</form>
+</div>
+</div>
+</div>
+
+</body>
+    </html>
