@@ -264,11 +264,8 @@ $('#add').on('click',function(){
             prices.push(price);   
             pid.push(id);
             checkbranch = check;
-            
-            
             //product();
             billFunction();
-         
       }
    }
   }
