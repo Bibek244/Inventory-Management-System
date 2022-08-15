@@ -1,6 +1,7 @@
 <?php
 // for Brance select option box
-$branch = "<select name = 'branch' id='branch' class='form-control'> ";
+$branch = "<select name = 'branch' id='branch' class='form-control'> 
+<option>Select Branch</option>";
 $query = "SELECT * FROM branch";
 
 $result = mysqli_query($con,$query) or die(mysqli_error($con));

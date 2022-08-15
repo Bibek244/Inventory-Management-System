@@ -3,16 +3,20 @@ require 'connection.php';
 include'function.php';
 include'topbar.php';
 if($_SESSION['TYPE']!="admin"){
-   $query = "SELECT PRODUCT_ID,NAME FROM inventory WHERE branch_id = '$_SESSION[branch]'";
+   $query = "SELECT PRODUCT_ID,NAME FROM inventory WHERE branch_id = '$_SESSION[BRANCH]' ";
+   $result = mysqli_query($con,$query) or die(mysqli_error($con));
+   $product = "<select id = 'product' class= 'form-control' >
+   <option> Select Product</option>";
+   while($row = mysqli_fetch_assoc($result)){
+      $product .="<option  id = ".$row['PRODUCT_ID']." value =".$row['NAME'].">".$row['NAME']."</option>";
+   }
+   $product .= "</select>";
 }
-$query = "SELECT PRODUCT_ID,NAME FROM inventory";
-$result = mysqli_query($con,$query) or die(mysqli_error($con));
-$product = "<select id = 'product' class= 'form-control' >
-<option> Select Product</option>";
-while($row = mysqli_fetch_assoc($result)){
-    $product .="<option  id = ".$row['PRODUCT_ID']." value =".$row['NAME'].">".$row['NAME']."</option>";
+else{
+   $product="<select id ='product' class='form-control'>
+      <option> Select product</option>
+   </select>";
 }
-$product .= "</select>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,7 +84,7 @@ $product .= "</select>";
             <td><?= $branch?></td>
       <?php   
       }?>
-      <td><?= $product?></td>
+      <td id ="prod"><?= $product?></td>
          <td> <input type = "number" class = "form-control" min ="1" max ="9999999" id = "qty" ></td>
          <td id = "price"></td>
          <td id ="stock"></td>
@@ -170,7 +174,22 @@ $product .= "</select>";
       var prices = [];
       var pid =[];
       var id;
- $('#product').change(function() {
+      var branch_id ;
+      var checkbranch ;
+      $('#branch').change(function(){
+       branch_id =$(this).val();
+         $.ajax({
+            url:"show_branch.php",
+            method:"POST",
+            data:{
+               branch_id : branch_id
+            },
+            success:function(data){
+               $('#product').html(data);
+            },
+         });
+      });
+ $('#product',('#prod'),).change(function() {
     id = $(this).find(':selected')[0].id;
        $.ajax ({
           url:"showsales.php",
@@ -202,15 +221,20 @@ $('#add').on('click',function(){
   var price =$('#price').text();
   var cus = $('#customer').val();
   var stock = parseInt($('#stock').text());
-  
+  var check = $('#branch').val();
 
   var nameRegex = /^[a-zA-Z/\s/ \-]+$/;
   var validfirstUsername = cus.match(nameRegex);
 
-   
-  if(pro.indexOf(name) !== -1){
-   var erroMsg =  '<span class="alert alert-danger ml-5">Item already exist in cart to add please press reset and select desired quantity</span>';
-      $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
+
+               if(count >= 2 &&  check != checkbranch ){
+                  var erroMsg =  '<span class="alert alert-danger ml-5"> Cannot add different branch tarnsaction in same bill. Please do the transaction in seperate bill</span>';
+                  $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
+            }
+            else{
+               if(pro.indexOf(name) !== -1){
+                  var erroMsg =  '<span class="alert alert-danger ml-5">Item already exist in cart to add please press reset and select desired quantity</span>';
+                  $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
             }
             else{
    if (validfirstUsername == null){
@@ -229,22 +253,26 @@ $('#add').on('click',function(){
          var erroMsg =  '<span class="alert alert-danger ml-5">Minimum Qty should be 1 or More than 1</span>';
          $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
       }
-   
       else{
          if (stock == '0'|| stock < qty){
-         var erroMsg =  '<span class="alert alert-danger ml-5">Product is out of stock</span>';
-         $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
-      }else{
-
-         pro.push(name);
-         qtyno.push(qty);
-         prices.push(price);   
-         pid.push(id);
-         pid.push(id);
-         //product();
-         billFunction();
+            var erroMsg =  '<span class="alert alert-danger ml-5">Product is out of stock</span>';
+            $('#errorMsg').html(erroMsg).stop(true, true).show().fadeOut(9000);
+         }
+         else{
+            pro.push(name);
+            qtyno.push(qty);
+            prices.push(price);   
+            pid.push(id);
+            checkbranch = check;
+            
+            
+            //product();
+            billFunction();
+         
       }
+   }
   }
+}
 }
 }
   function billFunction()
@@ -291,7 +319,6 @@ $('#add').on('click',function(){
             });      
          count++;
         } 
-      }
        });
       
        
@@ -334,5 +361,6 @@ $('#add').on('click',function(){
   });
   return false;
       } 
+
  </script>
 </html>
