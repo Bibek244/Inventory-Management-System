@@ -1,8 +1,9 @@
 <?php
+
 ini_set("display_errors", "1");
 error_reporting(E_ALL);
 require'connection.php';
-include 'sidebar.php';
+include"sidebar.php";
 include'function.php';
 ?>
 <!DOCTYPE html>
@@ -57,9 +58,8 @@ display:inline-block;
                 <li>
                     Inventory
                 </li>
-
                 
-                            <li >         
+                            <li class="float-right" >         
                                 <a type ="button" class="btn btn-primary bg-gradient-primary " href = "product.php">Add product</a>
                             </li>
                         
@@ -74,6 +74,7 @@ display:inline-block;
                     
                         <thead>
         <tr>
+            <th>Branch</th>
             <th >Product code</th>
             <th >Name</th>
             <th >Quantity</th>
@@ -81,7 +82,7 @@ display:inline-block;
             <th >Selling Price</th>
             <th >Category</th>
             <th >Date Stock In</th>
-            <th  colspan ="3"  align="center">Action</th>
+            <th  align="center">Action</th>
 </tr>
 </thead>
 <tbody>
@@ -97,6 +98,7 @@ display:inline-block;
         while($row = mysqli_fetch_assoc($result)) {
             $_SESSION['branch_name'] = $row['branch_name'];
             echo '<tr>';
+            echo '<td>'. $row['branch_name']. '</td>';
             echo '<td>'. $row['product_code']. '</td>';
             echo '<td>'. $row['NAME'] . '</td>';
             echo '<td>' .$row['QUANTITY'] . '</td>';
@@ -105,19 +107,22 @@ display:inline-block;
             echo '<td>' . $row['CATAGORY'] . '</td>';
             echo '<td>' . $row['DATE'];
             
-            echo "<td align = 'right'><a type= 'button' class='btn btn-primary bg-gradient-primary' href ='updateproduct.php?PRODUCT_ID=$row[PRODUCT_ID]&NAME=$row[NAME]&QUANTITY=$row[QUANTITY] &cprice=$row[cprice]&sprice=$row[sprice]&CATAGORY=$row[CATAGORY] '>Update/Edit</a></td>";
-            echo "<td align = 'right'> <a type= 'button' class='btn btn-danger bg-gradient-danger' onclick ='return checkDelete()' href ='delete.php?PRODUCT_ID=$row[PRODUCT_ID]'>Delete</a></td> ";
+            echo "<td align = 'right'> <a type= 'button' class='btn btn-secondary bg-gradient' href ='detail_product.php?product_code=$row[product_code]'>Detail</a></td> ";
+        
             echo "</tr>";    
         }
         echo $_SESSION['branch_name'];
     }
     else{  
         echo"List of product in all inventory";
-        $sql = "SELECT PRODUCT_ID,product_code, NAME, QUANTITY, cprice, sprice, CATAGORY, DATE FROM inventory GROUP BY PRODUCT_CODE";
+        $sql = "SELECT PRODUCT_ID,product_code, NAME, QUANTITY, cprice, sprice, CATAGORY, DATE,branch_name FROM inventory i
+        JOIN branch b ON b.branch_id = i.branch_id 
+        GROUP BY PRODUCT_CODE ORDER BY i.branch_id";
         $result = mysqli_query($con,$sql) or die (mysqli_error($con));
     }
         while($row = mysqli_fetch_assoc($result)) {
             echo '<tr>';
+            echo '<td>'. $row['branch_name']. '</td>';
             echo '<td>'. $row['product_code']. '</td>';
             echo '<td>'. $row['NAME'] . '</td>';
             echo '<td>' .$row['QUANTITY'] . '</td>';
@@ -128,7 +133,6 @@ display:inline-block;
             
            
             echo "<td align = 'right'> <a type= 'button' class='btn btn-secondary bg-gradient' href ='detail_product.php?product_code=$row[product_code]'>Detail</a></td> ";
-            echo "<td align = 'right'> <a type= 'button' class='btn btn-danger bg-gradient' onclick ='return checkDelete()' href ='delete.php?PRODUCT_ID=$row[PRODUCT_ID]'>Delete</a></td> ";
             echo "</tr>";    
         }
     
@@ -144,11 +148,7 @@ display:inline-block;
 
 </div>
 </div>
-<script>
-    function checkDelete(){
-        return confirm('Are you sure you want to delete this product from record');
-    }
-    </script>
+
 
             </body>
             </html>

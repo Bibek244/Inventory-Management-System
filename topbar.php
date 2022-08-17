@@ -27,11 +27,18 @@ confirm_logged_in();
     
       
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <a class="navbar-brand" href="welcome.php">Inventory Management SYSTEM</a>
+    <a class="navbar-brand" href="welcome.php">Inventory Management System</a>
       <ul class="navbar-nav ml-auto ">
         <?php
         if($_SESSION['ROLE'] != "Cashier"){
+          if($_SESSION['ROLE']  == "Branch Manager"){
           ?>
+          <li class="nav-item">
+            <a class="nav-link navbar-brand" href="brn_inventory.php">Inventory</a>
+          </li>
+          <?php
+        }
+        ?>
       <li class="nav-item">
           <a class="nav-link navbar-brand" href="product.php">Add Product</a>
         </li>

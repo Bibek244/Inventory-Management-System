@@ -7,6 +7,7 @@ $PRODUCT_ID = $_GET['PRODUCT_ID'];
 $product_code = $_GET['product_code'];
 $name = $_GET['NAME'];
 $quantity = $_GET['QUANTITY'];
+$inHand_stock =$_GET['stock'];
 $cprice = $_GET['cprice'];
 $sprice = $_GET['sprice'];
 $catagory = $_GET['CATAGORY'];
@@ -35,8 +36,12 @@ if($PRODUCT_ID == NULL){
                         <div class="form-group">
                         <label for ="QUANTITY">Quantity</label>
                                 <input type="number" class = "form-control"name ="QUANTITY" id ="QUANTITY" value =<?php echo $quantity?>>
-
+                        </div>  
+                        <div class="form-group">
+                        <label for ="stock">Available stock</label>
+                                <input type="number" class = "form-control"name ="inHand_stock" id ="stock" value =<?php echo $inHand_stock?>>
                         </div>
+
                         <div class="form-group">
                         <label for ="cprice">Cost price</label>
                                 <input type="number" class="form-control" name ="cprice" id ="cprice" value ="<?php echo $cprice?>">

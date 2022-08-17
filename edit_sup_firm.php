@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     else{
         ?>
         <script>
-            alert('Sucess');
+            alert('Success');
             window.location = "supplier.php";
     </script>
     <?php

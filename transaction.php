@@ -10,10 +10,10 @@ include'sidebar.php';
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <style>
-    ul {
+   .container  ul {
       overflow:hidden;
     }
-   li{
+   .container  li{
       display: inline-block;
     }
   </style>
@@ -66,7 +66,53 @@ include'sidebar.php';
 
 
         $i = $start +1;
+        ?>
+        <ul>
+        <li  class ="float-left">
+      <?php
+        $total_page =  ceil($result_all / $limit);
+        echo "Total Page :".$page .'/'. $total_page;
+        $pagination = "<nav>
+        <ul class='pagination'>";
+        if($result_all>$limit){
+          $disabled = ($page==1 ) ? "disabled" : "";
+          $pagination .="<li class= 'page-item $disabled'>
+          <a class='page-link' href='?page=1'>First</a></li> ";
+          $prev = $page - 1;
+          $pagination .="<li class= 'page-item $disabled'>
+          <a class='page-link' href='?page=$prev'>prev</a></li> ";
+          $disabled = ($page==$total_page ) ? "disabled" : "";
+           $next = $page + 1;
+          $pagination .="<li class= 'page-item $disabled'>
+          <a class='page-link' href='?page=$next'>Next</a></li> ";
+          $pagination .="<li class= 'page-item $disabled'>
+          <a class='page-link' href='?page=$total_page'>Last</a></li> ";
+        }
+        $pagination .="</ul></nav>";
+        echo $pagination;
 
+    ?>
+    </li>
+    <li class ="float-right">
+    <label for="limit">Table size</label>
+    <ul id ="limit"class="pagination ">
+      <li class ="page-item">
+        <a class= "page-link"href ="?limit=10">10</a>  
+      </li>
+      <li class ="page-item">
+        <a class= "page-link" href ="?limit=25">25</a>  
+      </li>
+      <li class ="page-item">
+        <a class= "page-link" href ="?limit=50">50</a>  
+  </li>
+  <li class ="page-item">
+    <a class= "page-link" href ="?limit=100">100</a>  
+  </li>
+  
+</ul>
+      </li>
+</ul>
+<?php
         while ($row = mysqli_fetch_assoc($result_limit)) {
           echo '<tr>';
           echo'<td>'.$i.'</td>';
@@ -85,53 +131,11 @@ include'sidebar.php';
                                 </tbody>
                             </table>
                             
-                            <ul>
-                              <li >
-                              <?php
-                                $total_page =  ceil($result_all / $limit);
-                                echo "Total Page :".$page .'/'. $total_page;
-                                $pagination = "<nav>
-                                <ul class='pagination'";
-                                if($result_all>$limit){
-                                  $disabled = ($page==1 ) ? "disabled" : "";
-                                  $pagination .="<li class= 'page-item $disabled'>
-                                  <a class='page-link' href='?page=1'>First</a></li> ";
-                                  $prev = $page - 1;
-                                  $pagination .="<li class= 'page-item $disabled'>
-                                  <a class='page-link' href='?page=$prev'>prev</a></li> ";
-                                  $disabled = ($page==$total_page ) ? "disabled" : "";
-                                   $next = $page + 1;
-                                  $pagination .="<li class= 'page-item $disabled'>
-                                  <a class='page-link' href='?page=$next'>Next</a></li> ";
-                                  $pagination .="<li class= 'page-item $disabled'>
-                                  <a class='page-link' href='?page=$total_page'>Last</a></li> ";
-                                }
-                                $pagination .="</ul></nav>";
-                                echo $pagination;
-            
-                            ?>
-                            </li>
-                            <li>
-                            <label for="limit">Table size</label>
-                            <ul id ="limit"class="pagination">
-                            <li class ="page-item">
-                            <a class= "page-link"href ="?limit=10">10</a>  
-                              </li>
-                          <li class ="page-item">
-                          <a class= "page-link" href ="?limit=25">25</a>  
-                              </li>
-                            <li class ="page-item">
-                            <a class= "page-link" href ="?limit=50">50</a>  
-                          </li>
-                          <li class ="page-item">
-                            <a class= "page-link" href ="?limit=100">100</a>  
-                          </li>
-                          
-                        </ul>
-                              </li>
-                      </ul>
+
+                             
                      
-                    </div>
+                    
+                  </div>
                   </div>
                 </div>
               </div>

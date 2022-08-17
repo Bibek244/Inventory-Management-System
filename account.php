@@ -69,7 +69,7 @@ echo "</tr>";
                         <li>
                             <h4 class="m-2 font-weight-bold text-primary">Users</h4>
                         </li>
-                        <li>
+                        <li class="float-right">
                             <a class="btn btn-primary bg-gradient-primary"  href = "addaccount.php"> Add account</a>
                         </li>
                     </ul>

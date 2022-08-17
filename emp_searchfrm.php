@@ -1,8 +1,6 @@
 <?php
     include 'connection.php';
     include'sidebar.php';
-    ini_set("display_errors", "1");
-error_reporting(E_ALL);
 ?>
 <?php
 $query = "SELECT Employe_Id, fname, lname, gender, email, phone, j.JOB_TITLE, Hired_date, address FROM employee e

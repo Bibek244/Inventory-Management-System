@@ -33,16 +33,9 @@ $emp  = "<select name='employee' id='employee'class= 'form-control' required>
                     <div class="form-group">
                         <label for ="password">Password</label>
                         <input type = "password" id="password" class="form-control"name ="password"  required>
-                    </div>
-                    <div class="form-group">
-                        <label for ="acc_type">Account Type</label>
-                        <select id ="acc_type" class ="form-control" name="type">
-                            <option value="3">Brach Admin</option>
-                            <option value="2">Cashier</option>
-                        </select>
-                    </div>
                 </div>
-                    <div class="card-footer">
+</div>
+                    <div class="card-footer text-right">
                         <button type ="submit" name ="submit" class="btn btn-primary" >submit</button>
                         <a href = "account.php"class="btn btn-secondary" >cancel</a>
                     </div>

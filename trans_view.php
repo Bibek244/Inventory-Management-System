@@ -40,6 +40,7 @@ include'sidebar.php';
       #my-selection , #my-selection *{
         visibility: visible;
       }
+      
       #my-selection{
        position: fixed;
         left :0;
@@ -51,32 +52,33 @@ include'sidebar.php';
         visibility: hidden;
       }
     }
-    .container1{
-   position: absolute;
- box-sizing: border-box;
- display: flex;
- justify-content: flex-end;
-   width : calc(100% - 300px);
-  z-index :2;
+    
+.card  ul{
+overflow:hidden;
 }
-.container{
-   box-sizing: border-box;
-   z-index :1;
+.card  li{
+display:inline-block;
 }
+
     </style>
 </head>
 <body>
-  
   <div id = "content">
-  <div id="non" class="container1  text-right card-header bg-transparent mb-4">
-            <button class = "btn btn-success" onclick = "window.print()">print</button>
-
-            </div>
+  
     <div class="container"> 
       <selection id="my-selection">
                 <div class="card shadow mb-4">
                   <div class="card-header bg-primary text-white text-center">
-                    <h3>Reciept</h3>
+                  <ul>
+                    <li class="float-center">
+                      <h3>Reciept</h3>
+
+                    </li>
+                    <li class="float-right">
+                      <button class="btn btn-success" id ="non" onclick=  "window.print()">print</button>
+                    </li>
+
+                  </ul>  
                   </div>
                   <div class="card-body">
                        <div class=" form-group row text-left mb-0">

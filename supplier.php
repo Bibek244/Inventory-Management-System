@@ -28,7 +28,7 @@ display:inline-block;
                       <li>
                         <h4 class="m-2 font-weight-bold text-primary">Suppliers</h4>
                       </li>
-                      <li>
+                      <li class="float-right">
                         <a  type = "button" class='btn btn-primary bg-gradient-primary'  href="addsup.php">Add supplier</a>
                       </li>
                     </ul>
